@@ -57,9 +57,9 @@ if (!empty($_POST) || isset($_GET['order'])) {
                     'impressions' => $exoData[$siteName]['impressions'],
                     'conversions' => $data[2],
                     'cost' => $exoData[$siteName]['cost'],
-                    'profit' => $data[5],
-                    'cv' => $exoData[$siteName]['impressions'] / $data[2],
-                    'roi' => $exoData[$siteName]['cost'] / $data[4],
+                    'revenue' => $data[3],
+                    'cv' => $data[2] / $exoData[$siteName]['impressions'] * 100,
+                    'roi' => ($data[3]-$exoData[$siteName]['cost'])/$exoData[$siteName]['cost']*100,
                 ];
             }
         }
@@ -145,7 +145,7 @@ function var_dump_pre($val)
                     <td><a href="?order=impressions&sortOrder=<?= (isset($_GET['order']) && $_GET['order'] == 'impressions' && $_GET['sortOrder'] == 'desc') ? 'asc' : 'desc' ?>">Impressions </a></td>
                     <td><a href="?order=conversions&sortOrder=<?= (isset($_GET['order']) && $_GET['order'] == 'conversions' && $_GET['sortOrder'] == 'desc') ? 'asc' : 'desc' ?>">Conversions</a></td>
                     <td><a href="?order=cost&sortOrder=<?= (isset($_GET['order']) && $_GET['order'] == 'cost' && $_GET['sortOrder'] == 'desc') ? 'asc' : 'desc' ?>">Cost</a></td>
-                    <td><a href="?order=profit&sortOrder=<?= (isset($_GET['order']) && $_GET['order'] == 'profit' && $_GET['sortOrder'] == 'desc') ? 'asc' : 'desc' ?>">Profit</a></td>
+                    <td><a href="?order=revenue&sortOrder=<?= (isset($_GET['order']) && $_GET['order'] == 'revenue' && $_GET['sortOrder'] == 'desc') ? 'asc' : 'desc' ?>">Revenue</a></td>
                     <td><a href="?order=cv&sortOrder=<?= (isset($_GET['order']) && $_GET['order'] == 'cv' && $_GET['sortOrder'] == 'desc') ? 'asc' : 'desc' ?>">CV</a></td>
                     <td><a href="?order=roi&sortOrder=<?= (isset($_GET['order']) && $_GET['order'] == 'roi' && $_GET['sortOrder'] == 'desc') ? 'asc' : 'desc' ?>">ROI</a></td>
                 </tr>
@@ -157,9 +157,9 @@ function var_dump_pre($val)
                         <td><?= $row['impressions'] ?></td>
                         <td><?= $row['conversions'] ?></td>
                         <td><?= $row['cost'] ?></td>
-                        <td><?= $row['profit'] ?></td>
+                        <td><?= $row['revenue'] ?></td>
                         <td><?= $row['cv'] ?></td>
-                        <td><?= $row['roi'] ?></td>
+                        <td style="color: <?= $row['roi'] >= 0 ? 'green' : 'red';?>"><?= $row['roi'] ?></td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>
