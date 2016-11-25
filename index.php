@@ -11,8 +11,12 @@ if (!empty($_FILES['exo']['tmp_name']) && !empty($_FILES['voluum']['tmp_name']))
         chmod($csvDir, 0777);
     }
 
-    if (move_uploaded_file($_FILES['exo']['tmp_name'], $exoFile) === false && move_uploaded_file($_FILES['voluum']['tmp_name'], $voluumFile) === false) {
-        $errors[] = 'Не удалось загрузить файлы';
+    if (move_uploaded_file($_FILES['exo']['tmp_name'], $exoFile) === false) {
+        $errors[] = 'Не удалось загрузить файл EXO';
+    }
+
+    if (move_uploaded_file($_FILES['voluum']['tmp_name'], $voluumFile) === false) {
+        $errors[] = 'Не удалось загрузить файл VOLUUM';
     }
 }
 
